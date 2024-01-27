@@ -6,7 +6,8 @@ import { signIn, signOut, useSession, getProviders } from "next-auth/react"; //t
 import { set } from "mongoose";
 
 const Nav = () => {
-  const isUserLoggedIn = true;
+  const { data: session } = useSession(); //this allows us to use the session state from next-auth
+  const isUserLoggedIn = !!session; //this will return true if the user is logged in and false if not
 
   //create a state to manage the providers and another state to toggle the dropdown for the mobile version
   const [providers, setProviders] = useState(null);
@@ -14,12 +15,12 @@ const Nav = () => {
 
   //set the useEffect to run when the component is mounted
   useEffect(() => {
-    const setProviders = async () => {
+    const setUpProviders = async () => {
       const response = await getProviders();
       setProviders(response);
     };
 
-    setProviders();
+    setUpProviders();
   }, []);
 
   //create a function to display the page if the user is logged in
