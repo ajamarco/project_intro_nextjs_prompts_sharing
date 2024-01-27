@@ -1,3 +1,5 @@
+// This file is the layout component used in Next.js.
+// It provides a common structure and styling for all pages in the application.
 import { Inter } from "next/font/google";
 import "./globals.css";
 
