@@ -3,12 +3,14 @@ import Link from "next/link"; //this allows us to link to other pages in our app
 import Image from "next/image"; //this allows us to use images in our app
 import { useState, useEffect } from "react"; //this allows us to use state in our app
 import { signIn, signOut, useSession, getProviders } from "next-auth/react"; //this allows us to use next-auth in our app
+import { set } from "mongoose";
 
 const Nav = () => {
-  const isUserLoggedIn = false;
+  const isUserLoggedIn = true;
 
-  //create a state to manage the providers
+  //create a state to manage the providers and another state to toggle the dropdown for the mobile version
   const [providers, setProviders] = useState(null);
+  const [toggleDropdown, setToggleDropdown] = useState(false);
 
   //set the useEffect to run when the component is mounted
   useEffect(() => {
@@ -55,8 +57,40 @@ const Nav = () => {
   const userIsLoggedMobile = () => {
     return (
       <div className="flex">
-        <Image src={"/assets/images/logo.svg"} width={30} height={30} className="rounded-full" alt="Profile Icon" onClick={() => {}} />
-        {/* TODO: add an onclick function to the image, to open the menu */}
+        <Image
+          src={"/assets/images/logo.svg"}
+          width={30}
+          height={30}
+          className="rounded-full"
+          alt="Profile Icon"
+          onClick={() => {
+            setToggleDropdown((prev) => !prev);
+          }}
+        />
+
+        {
+          //if the toggleDropdown state is true, display the dropdown
+          toggleDropdown && (
+            <div className="dropdown">
+              <Link href="/profile" className="dropdown_link" onClick={() => setToggleDropdown(false)}>
+                My Profile
+              </Link>
+              <Link href="/create-prompt" className="dropdown_link" onClick={() => setToggleDropdown(false)}>
+                Create Prompt
+              </Link>
+              <button
+                type="button"
+                onClick={() => {
+                  setToggleDropdown(false);
+                  signOut();
+                }}
+                className="mt-5 w-full black_btn"
+              >
+                Sign Out
+              </button>
+            </div>
+          )
+        }
       </div>
     );
   };
