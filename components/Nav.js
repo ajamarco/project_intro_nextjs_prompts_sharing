@@ -5,7 +5,20 @@ import { useState, useEffect } from "react"; //this allows us to use state in ou
 import { signIn, signOut, useSession, getProviders } from "next-auth/react"; //this allows us to use next-auth in our app
 
 const Nav = () => {
-  const isUserLoggedIn = true;
+  const isUserLoggedIn = false;
+
+  //create a state to manage the providers
+  const [providers, setProviders] = useState(null);
+
+  //set the useEffect to run when the component is mounted
+  useEffect(() => {
+    const setProviders = async () => {
+      const response = await getProviders();
+      setProviders(response);
+    };
+
+    setProviders();
+  }, []);
 
   //create a function to display the page if the user is logged in
   const userIsLogged = () => {
@@ -26,7 +39,26 @@ const Nav = () => {
 
   //create a function to display the page if the user is not logged in
   const userIsNotLogged = () => {
-    return <div>user is NOT logged</div>;
+    return (
+      <div>
+        {providers &&
+          Object.values(providers).map((provider) => (
+            <button type="button" key={provider.name} onClick={() => signIn(provider.id)} className="black_btn">
+              Sign in
+            </button>
+          ))}
+      </div>
+    );
+  };
+
+  //create a function to display the page if the user is logged in - mobile version
+  const userIsLoggedMobile = () => {
+    return (
+      <div className="flex">
+        <Image src={"/assets/images/logo.svg"} width={30} height={30} className="rounded-full" alt="Profile Icon" onClick={() => {}} />
+        {/* TODO: add an onclick function to the image, to open the menu */}
+      </div>
+    );
   };
 
   return (
@@ -40,6 +72,12 @@ const Nav = () => {
       {/* sm:flex hidden means that this will be hidden on mobiles */}
       <div className="sm:flex hidden">
         {isUserLoggedIn ? userIsLogged() : userIsNotLogged()} {/* if the user is logged in, display the userIsLogged function, if not, display the userIsNotLogged function */}
+      </div>
+
+      {/* MOBILE navigation */}
+      <div className="sm:hidden flex relative">
+        {isUserLoggedIn ? userIsLoggedMobile() : userIsNotLogged()}
+        {/* if the user is logged in, display the userIsLoggedMobile function, if not, display the userIsNotLoggedMobile function */}
       </div>
     </nav>
   );
