@@ -34,7 +34,7 @@ const Nav = () => {
           Sign Out
         </button>
         <Link href="/profile" className="flex gap-2 flex-center">
-          <Image src={session?.user.image} width={30} height={30} className="rounded-full" alt="Profile Icon" />
+          <Image src={session?.user.image} width={30} height={30} className="rounded-full cursor-pointer" alt="Profile Icon" />
         </Link>
       </div>
     );
