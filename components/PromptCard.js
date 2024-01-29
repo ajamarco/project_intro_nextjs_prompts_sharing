@@ -6,6 +6,9 @@ import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 
 const PromptCard = ({ prompt, handleTagClick, handleEdit, handleDelete }) => {
+  const { data: session } = useSession();
+  const pathname = usePathname();
+  const router = useRouter();
   //create a state to manage if the text has been copied or not
   const [copied, setCopied] = useState("");
 
@@ -18,6 +21,20 @@ const PromptCard = ({ prompt, handleTagClick, handleEdit, handleDelete }) => {
     setTimeout(() => {
       setCopied("");
     }, 2000);
+  };
+
+  //create a function to display the edit and delete buttons for the prompt's creator
+  const showEditAndDelete = () => {
+    return (
+      <div className="mt-5 flex-center gap-4 border-t border-gray-100 pt-3">
+        <p className="font-inter text-sm green_gradient cursor-pointer" onClick={handleEdit}>
+          Edit
+        </p>
+        <p className="font-inter text-sm green_gradient cursor-pointer" onClick={handleDelete}>
+          Delete
+        </p>
+      </div>
+    );
   };
 
   return (
@@ -38,6 +55,7 @@ const PromptCard = ({ prompt, handleTagClick, handleEdit, handleDelete }) => {
       <p className="font-inter text-sm blue_gradient cursor-pointer" onClick={() => handleTagClick && handleTagClick(prompt.tag)}>
         {prompt.tag}
       </p>
+      {session?.user.id === prompt.creator._id && pathname === "/profile" && showEditAndDelete()}
     </div>
   );
 };
