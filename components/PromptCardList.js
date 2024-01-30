@@ -9,8 +9,20 @@ const PromptCardList = ({ ...props }) => {
           key={prompt._id}
           prompt={prompt}
           handleTagClick={props.handleTagClick}
-          handleEdit={props.handleEdit ? props.handleEdit : () => {}}
-          handleDelete={props.handleDelete ? props.handleDelete : () => {}}
+          handleEdit={
+            props.handleEdit
+              ? () => {
+                  props.handleEdit(prompt);
+                }
+              : () => {}
+          }
+          handleDelete={
+            props.handleDelete
+              ? () => {
+                  props.handleDelete(prompt);
+                }
+              : () => {}
+          }
         />
       ))}
     </div>
