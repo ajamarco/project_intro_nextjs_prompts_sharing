@@ -16,18 +16,18 @@ const UpdatePrompt = () => {
   const [post, setPost] = useState({ prompt: "", tag: "" });
 
   //useEffect
-  useEffect(() => {
-    const getPromptDetails = async () => {
-      const response = await fetch(`/api/prompt/${promptId}`);
-      const data = await response.json();
+  // useEffect(() => {
+  //   const getPromptDetails = async () => {
+  //     const response = await fetch(`/api/prompt/${promptId}`);
+  //     const data = await response.json();
 
-      setPost({
-        prompt: data.prompt,
-        tag: data.tag,
-      });
-    };
-    if (promptId) getPromptDetails();
-  }, [promptId]);
+  //     setPost({
+  //       prompt: data.prompt,
+  //       tag: data.tag,
+  //     });
+  //   };
+  //   if (promptId) getPromptDetails();
+  // }, [promptId]);
 
   //   create a function called createPrompt to handle the form submission
   const updatePrompt = async (e) => {
