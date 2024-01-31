@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 //components
 import Form from "@components/Form";
 
-const UpdatePrompt = () => {
+function WrappedUpdatePrompt() {
   //get the router and session
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -54,9 +54,13 @@ const UpdatePrompt = () => {
     }
   };
 
+  return <Form type="Edit" post={post} setPost={setPost} submitting={submitting} handleSubmit={updatePrompt} />;
+}
+
+const UpdatePrompt = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
-      <Form type="Edit" post={post} setPost={setPost} submitting={submitting} handleSubmit={updatePrompt} />
+      <WrappedUpdatePrompt />
     </Suspense>
   );
 };
