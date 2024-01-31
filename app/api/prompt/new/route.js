@@ -1,6 +1,8 @@
 import { connectToDatabase } from "@utils/database";
 import Prompt from "@models/prompt";
 
+export const dynamic = "force-dynamic";
+
 export const POST = async (req, res) => {
   const { prompt, userId, tag } = await req.json();
   try {
