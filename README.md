@@ -1,17 +1,10 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This application was built using:
 
-## Getting Started
+- nextJs
+- ReactJS
+- TailwindCSS
+- mongoDB
 
-First, run the development server:
+The objective of this application is to enable the user to share and get prompts to be used with conversational AI's, such as ChatGPT.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Demo: https://promptland-git-master-alexandre-jamarcos-projects.vercel.app/
