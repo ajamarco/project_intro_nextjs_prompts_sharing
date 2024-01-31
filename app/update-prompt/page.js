@@ -7,7 +7,7 @@ import { get } from "mongoose";
 
 const UpdatePrompt = () => {
   //get the router and session
-  const router = useRouter();
+  // const router = useRouter();
   const searchParams = useSearchParams();
   const promptId = searchParams.get("id");
 
@@ -45,7 +45,8 @@ const UpdatePrompt = () => {
         }),
       });
       if (response.ok) {
-        router.push("/");
+        // router.push("/");
+        console.log("prompt updated");
       }
     } catch (error) {
       console.log("something happened... ", error);
